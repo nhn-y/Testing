@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, jsonify, session
 
-from saleappv1.eapp import app, dao, login, utils
+from eapp import app, dao, login, utils
 from flask_login import login_user, logout_user, current_user, login_required
 import math
 from eapp.dao import add_user
@@ -156,6 +156,6 @@ def load_user(id):
 
 
 if __name__ == '__main__':
-    from saleappv1.eapp import admin
+    from eapp import admin
     register_routes(app = app)
     app.run(debug=True)

@@ -1,8 +1,12 @@
+from sys import executable
+
 import pytest
 from flask import Flask
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
-from saleappv1.eapp import db
-from saleappv1.eapp.models import Product
+from eapp import db
+from eapp.models import Product
 
 
 def create_app():
@@ -13,7 +17,7 @@ def create_app():
     app.secret_key = '123456789asdfghjk@'
     db.init_app(app)
 
-    from saleappv1.eapp.index import register_routes
+    from eapp.index import register_routes
     register_routes(app)
 
     return app
@@ -51,9 +55,17 @@ def sample_product(test_session):
 
     yield [p1, p2, p3, p4]
 
-@pytest.fixture()
+@pytest.fixture
 def test_cloudinary(monkeypatch):
     def fake_upload(file):
         return{'secure_url':'https://fake-image.png'}
 
     monkeypatch.setattr('cloudinary.uploader.upload', fake_upload)
+
+@pytest.fixture
+def driver():
+    service = Service(executable_path= r"D:\Testing\saleappv1\.venv\chromedriver.exe")
+    driver = webdriver.Chrome(service = service)
+
+    yield driver
+    driver.quit()

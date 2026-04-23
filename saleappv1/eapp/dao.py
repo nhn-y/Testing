@@ -1,6 +1,6 @@
 from sqlalchemy.exc import IntegrityError
 
-from saleappv1.eapp.models import Category, Product, User, Receipt, ReceiptDetails
+from eapp.models import Category, Product, User, Receipt, ReceiptDetails
 import hashlib
 from eapp import app, db
 import cloudinary.uploader
